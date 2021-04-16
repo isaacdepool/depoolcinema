@@ -9,7 +9,7 @@ export const getMovies = async ( req:Request, resp:Response ) => {
     let limit = req.query.limit || 10;
     limit = Number(limit);
 
-    const movies = await Movies.findAll({
+    const moviesData = await Movies.findAll({
         offset,
         limit
     });
@@ -17,7 +17,7 @@ export const getMovies = async ( req:Request, resp:Response ) => {
     resp.json({
         ok: true,
         mgs: 'getMovies', 
-        movies
+        moviesData
     });
 }
 
@@ -27,9 +27,9 @@ export const getMovie = async ( req: Request, res:Response) => {
 
     try {
 
-        const moviesDB = await Movies.findByPk(id);
+        const movieData = await Movies.findByPk(id);
 
-        if(!moviesDB){
+        if(!movieData){
             return res.status(400).json({
                 ok: false,
                 msg: 'The movie does not exist'
@@ -38,7 +38,8 @@ export const getMovie = async ( req: Request, res:Response) => {
 
         return res.json({
             ok: true,
-            moviesDB
+            msg: 'getMovie',
+            movieData
         });
         
     } catch (error) {
@@ -57,12 +58,12 @@ export const postMovie = async ( req: Request, res:Response) => {
     try {
 
     const movie = await Movies.create(body);
-    const movieDB = await movie.save();
+    const movieData = await movie.save();
 
     return res.json({
         ok: true,
         msg: 'postMovie',
-        movieDB
+        movieData
     });
         
     } catch (error) {
@@ -90,12 +91,12 @@ export const putMovie = async(req: Request, res:Response) =>{
             });
         }
 
-        const movieUdate = await movieDB.update(body);
+        const movieData = await movieDB.update(body);
 
         return res.json({
             ok: true,
             msg: 'putMovie',
-            movieUdate
+            movieData
         });
         
     } catch (error) {
@@ -124,12 +125,12 @@ export const deleteMovie = async(req:Request, res:Response) =>{
 
         movie.status = false;
         const movieDB = await movie.update(movie)
-        const movieDelete = await movieDB.save();
+        const movieData = await movieDB.save();
 
         return res.json({
             ok: true,
             msg: 'deleteMovie',
-            movieDelete
+            movieData
         });
         
     } catch (error) {

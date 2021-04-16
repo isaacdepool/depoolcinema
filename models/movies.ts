@@ -12,7 +12,10 @@ const Movies = <MovieStatic>db.define('movies', {
     premiere: {
         type: DataTypes.DATE,
     },
-    img: {
+    vertical_poster: {
+        type: DataTypes.STRING,
+    },
+    horizontal_poster: {
         type: DataTypes.STRING,
     },
     actors: {
@@ -21,7 +24,16 @@ const Movies = <MovieStatic>db.define('movies', {
     directors: {
         type: DataTypes.STRING,
     },
+    genre: {
+        type: DataTypes.STRING,
+    },
+    rating: {
+        type: DataTypes.STRING,
+    },
     duration: {
+        type: DataTypes.STRING,
+    },
+    role: {
         type: DataTypes.STRING,
     },
     status: { 

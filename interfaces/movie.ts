@@ -5,10 +5,14 @@ export interface Movie{
     name: string,
     synopsis: string,
     premiere: string,
-    img: string,
+    vertical_poster: string,
+    horizontal_poster: string,
     actors: string,
     directors: string,
+    genre: string,
+    rating: string,
     duration: number,
+    role: string,
     status: boolean
 }
 
@@ -19,3 +23,5 @@ export class Movie extends Model<MovieModel, Movie> {};
 export type MovieStatic = typeof Model & {
     new (values?: object, options?: BuildOptions): MovieModel;
  };
+
+ 

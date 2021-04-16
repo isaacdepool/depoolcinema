@@ -19,22 +19,22 @@ const getMovies = (req, resp) => __awaiter(void 0, void 0, void 0, function* () 
     offset = Number(offset);
     let limit = req.query.limit || 10;
     limit = Number(limit);
-    const movies = yield movies_1.default.findAll({
+    const moviesData = yield movies_1.default.findAll({
         offset,
         limit
     });
     resp.json({
         ok: true,
         mgs: 'getMovies',
-        movies
+        moviesData
     });
 });
 exports.getMovies = getMovies;
 const getMovie = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
-        const moviesDB = yield movies_1.default.findByPk(id);
-        if (!moviesDB) {
+        const movieData = yield movies_1.default.findByPk(id);
+        if (!movieData) {
             return res.status(400).json({
                 ok: false,
                 msg: 'The movie does not exist'
@@ -42,7 +42,8 @@ const getMovie = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         return res.json({
             ok: true,
-            moviesDB
+            msg: 'getMovie',
+            movieData
         });
     }
     catch (error) {
@@ -58,11 +59,11 @@ const postMovie = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
         const movie = yield movies_1.default.create(body);
-        const movieDB = yield movie.save();
+        const movieData = yield movie.save();
         return res.json({
             ok: true,
             msg: 'postMovie',
-            movieDB
+            movieData
         });
     }
     catch (error) {
@@ -85,11 +86,11 @@ const putMovie = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 msg: 'The movie does not exist'
             });
         }
-        const movieUdate = yield movieDB.update(body);
+        const movieData = yield movieDB.update(body);
         return res.json({
             ok: true,
             msg: 'putMovie',
-            movieUdate
+            movieData
         });
     }
     catch (error) {
@@ -113,11 +114,11 @@ const deleteMovie = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         }
         movie.status = false;
         const movieDB = yield movie.update(movie);
-        const movieDelete = yield movieDB.save();
+        const movieData = yield movieDB.save();
         return res.json({
             ok: true,
             msg: 'deleteMovie',
-            movieDelete
+            movieData
         });
     }
     catch (error) {

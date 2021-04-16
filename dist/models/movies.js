@@ -15,7 +15,10 @@ const Movies = connection_1.default.define('movies', {
     premiere: {
         type: sequelize_1.DataTypes.DATE,
     },
-    img: {
+    vertical_poster: {
+        type: sequelize_1.DataTypes.STRING,
+    },
+    horizontal_poster: {
         type: sequelize_1.DataTypes.STRING,
     },
     actors: {
@@ -24,7 +27,16 @@ const Movies = connection_1.default.define('movies', {
     directors: {
         type: sequelize_1.DataTypes.STRING,
     },
+    genre: {
+        type: sequelize_1.DataTypes.STRING,
+    },
+    rating: {
+        type: sequelize_1.DataTypes.STRING,
+    },
     duration: {
+        type: sequelize_1.DataTypes.STRING,
+    },
+    role: {
         type: sequelize_1.DataTypes.STRING,
     },
     status: {
