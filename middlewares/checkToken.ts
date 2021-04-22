@@ -13,8 +13,9 @@ export const checkToken = (req:Request, res:Response, next:NextFunction) =>{
     }
 
     try {
-       jwt.verify( token, (process.env.SECRET_JWT_SEED || ''));
-        
+       const Jtoken = jwt.verify( token, (process.env.SECRET_JWT_SEED || ''));
+       req.body = Jtoken;       
+
     } catch (error) {
 
         return res.status(401).json({

@@ -14,7 +14,8 @@ const checkToken = (req, res, next) => {
         });
     }
     try {
-        jsonwebtoken_1.default.verify(token, (process.env.SECRET_JWT_SEED || ''));
+        const Jtoken = jsonwebtoken_1.default.verify(token, (process.env.SECRET_JWT_SEED || ''));
+        req.body = Jtoken;
     }
     catch (error) {
         return res.status(401).json({

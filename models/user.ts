@@ -9,8 +9,8 @@ const Usuario = <UserStatic>db.define('users', {
     last_name: {
         type: DataTypes.STRING, 
     }, 
-    age: {
-        type: DataTypes.INTEGER 
+    date_birth: {
+        type: DataTypes.STRING 
     },
     email: {
         type: DataTypes.STRING,

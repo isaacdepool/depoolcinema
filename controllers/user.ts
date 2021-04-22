@@ -5,12 +5,14 @@ import Usuario from '../models/user';
 
 export const getUsuarios = async ( req: Request, res: Response) => {
 
-    const userDB = await Usuario.findAll();
+    const usersData = await Usuario.findAll({
+        attributes: {exclude: ['password']}
+    });
 
     return res.json({
         ok: true,
         msg: 'getUsuario',
-        userDB
+        usersData
     });
 
 }
@@ -24,10 +26,10 @@ export const getUsuario = async ( req: Request, res: Response) => {
     const userDB = await Usuario.findByPk( id );
 
     let copy = JSON.stringify(userDB);
-    let user = JSON.parse(copy);
-    delete user.password;
+    let userData = JSON.parse(copy);
+    delete userData.password;
 
-    if(!user){
+    if(!userData){
         res.status(400).json({
             ok: false,
             msg: 'User is no-existent'
@@ -37,7 +39,7 @@ export const getUsuario = async ( req: Request, res: Response) => {
     res.json({
         ok: true,
         msg: 'getUsuario',
-        user
+        userData
     });
         
     } catch (error) {
@@ -57,7 +59,7 @@ export const login = async ( req: Request, res: Response) => {
     // Check email
     const user = await Usuario.findOne({where: {email}});
 
-    if( !user ){
+    if( !user ){ 
        return res.status(404).json({
             ok: false,
             msg: 'Invalid email or password'
@@ -76,13 +78,15 @@ export const login = async ( req: Request, res: Response) => {
 
     // Generate JWT
     const token = await generateJwt( user.id, user.name, user.email );
-
+    
      return res.json({
         ok: true,
         msg: 'getUsuario',
-        id: user.id,
-        name: user.name,
-        email: user.email,
+        userData: {
+            id: user.id,
+            name: user.name,
+            email: user.email,   
+        },
         token
     });
 
@@ -119,15 +123,12 @@ export const postUsuario = async ( req: Request, res: Response) => {
         // Create JWT
         const token = await generateJwt( id, name, email );
 
-
-        res.json({
+        const userData = { id, name, email }
+        return res.json({
             ok: true,
-            msg: 'postUsuario',
-            id,
-            name,
-            email,
+            userData,
             token
-        });
+        })
 
 
     } catch (error) {
@@ -169,13 +170,12 @@ export const putUsuario = async( req: Request, res: Response) => {
         // Create JWT
         const token = await generateJwt( id, name, email );
 
+        const userData = { id, name, email }
         return res.json({
             ok: true,
-            id,
-            name,
-            email,
+            userData,
             token
-        })
+        });
 
     } catch (error) {
         console.log(error);
@@ -202,12 +202,12 @@ export const deleteUsuario = async( req: Request, res: Response) => {
 
        user.status = false; 
        const userDB = await user.update(user);
-       const userDelete = await userDB.save();
+       const userData = await userDB.save();
 
     res.json({
         ok: true,
         msg: 'deleteUsuario',
-        userDelete
+        userData
     });
 
 }
@@ -216,14 +216,15 @@ export const renewToken = async(req: Request, res:Response) =>{
 
     const { body } = req;
     const { id, name, email } = body;
+    
 
     const token = await generateJwt( id, name, email );
-
+    
     return res.json({
         ok: true,
-        id,
-        name,
-        email,
+        id, 
+        name, 
+        email, 
         token
     });
 } 

@@ -12,8 +12,8 @@ const Usuario = connection_1.default.define('users', {
     last_name: {
         type: sequelize_1.DataTypes.STRING,
     },
-    age: {
-        type: sequelize_1.DataTypes.INTEGER
+    date_birth: {
+        type: sequelize_1.DataTypes.STRING
     },
     email: {
         type: sequelize_1.DataTypes.STRING,

@@ -17,11 +17,13 @@ const jwt_1 = require("../helpers/jwt");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const user_1 = __importDefault(require("../models/user"));
 const getUsuarios = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const userDB = yield user_1.default.findAll();
+    const usersData = yield user_1.default.findAll({
+        attributes: { exclude: ['password'] }
+    });
     return res.json({
         ok: true,
         msg: 'getUsuario',
-        userDB
+        usersData
     });
 });
 exports.getUsuarios = getUsuarios;
@@ -30,9 +32,9 @@ const getUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const userDB = yield user_1.default.findByPk(id);
         let copy = JSON.stringify(userDB);
-        let user = JSON.parse(copy);
-        delete user.password;
-        if (!user) {
+        let userData = JSON.parse(copy);
+        delete userData.password;
+        if (!userData) {
             res.status(400).json({
                 ok: false,
                 msg: 'User is no-existent'
@@ -41,7 +43,7 @@ const getUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.json({
             ok: true,
             msg: 'getUsuario',
-            user
+            userData
         });
     }
     catch (error) {
@@ -76,9 +78,11 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     return res.json({
         ok: true,
         msg: 'getUsuario',
-        id: user.id,
-        name: user.name,
-        email: user.email,
+        userData: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+        },
         token
     });
 });
@@ -105,12 +109,10 @@ const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const { id, name, email } = yield usuario.save();
         // Create JWT
         const token = yield jwt_1.generateJwt(id, name, email);
-        res.json({
+        const userData = { id, name, email };
+        return res.json({
             ok: true,
-            msg: 'postUsuario',
-            id,
-            name,
-            email,
+            userData,
             token
         });
     }
@@ -144,11 +146,10 @@ const putUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const { name, email } = userDB;
         // Create JWT
         const token = yield jwt_1.generateJwt(id, name, email);
+        const userData = { id, name, email };
         return res.json({
             ok: true,
-            id,
-            name,
-            email,
+            userData,
             token
         });
     }
@@ -172,11 +173,11 @@ const deleteUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
     user.status = false;
     const userDB = yield user.update(user);
-    const userDelete = yield userDB.save();
+    const userData = yield userDB.save();
     res.json({
         ok: true,
         msg: 'deleteUsuario',
-        userDelete
+        userData
     });
 });
 exports.deleteUsuario = deleteUsuario;
