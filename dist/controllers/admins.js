@@ -18,11 +18,11 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const jwt_1 = require("../helpers/jwt");
 const getAdmins = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const admins = yield admins_1.default.findAll();
+        const adminsData = yield admins_1.default.findAll();
         return res.json({
             ok: true,
             msg: 'getAdmin',
-            admins
+            adminsData
         });
     }
     catch (error) {
@@ -54,7 +54,7 @@ const loginAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             });
         }
         // Generate JWT
-        const token = yield jwt_1.generateJwt(admin.id, admin.username, admin.type);
+        const token = yield jwt_1.generateJwtAdmin(admin.id, admin.username, admin.type);
         return res.json({
             ok: true,
             msg: 'loginAdmin',
@@ -76,10 +76,10 @@ exports.loginAdmin = loginAdmin;
 const getAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
-        const admin = yield admins_1.default.findByPk(id, {
+        const adminData = yield admins_1.default.findByPk(id, {
             attributes: { exclude: ['password'] }
         });
-        if (!admin) {
+        if (!adminData) {
             return res.status(400).json({
                 ok: false,
                 msg: 'Admin is no-existent'
@@ -88,7 +88,7 @@ const getAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         return res.json({
             ok: true,
             msg: 'getAdmin',
-            admin
+            adminData
         });
     }
     catch (error) {
@@ -121,7 +121,7 @@ const postAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const adminBuild = yield admins_1.default.build(body);
         const adminDB = yield adminBuild.save();
         // Generate JWT
-        const token = yield jwt_1.generateJwt(adminDB.id, adminDB.username, adminDB.type);
+        const token = yield jwt_1.generateJwtAdmin(adminDB.id, adminDB.username, adminDB.type);
         return res.json({
             ok: true,
             msg: 'postAdmin',
@@ -210,7 +210,7 @@ exports.deleteAdmin = deleteAdmin;
 const renewToken = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     const { id, username, type } = body;
-    const token = yield jwt_1.generateJwt(id, username, type);
+    const token = yield jwt_1.generateJwtAdmin(id, username, type);
     return res.json({
         ok: true,
         id,

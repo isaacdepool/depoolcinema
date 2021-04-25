@@ -1,18 +1,18 @@
-import { Request, response, Response } from "express";
+import { Request, Response } from "express";
 import Admin from "../models/admins";
 import bcrypt from 'bcrypt';
-import { generateJwt } from '../helpers/jwt';
+import { generateJwtAdmin } from '../helpers/jwt';
 
 export const getAdmins = async(req:Request, res:Response) => {
 
     try {
         
-        const admins = await Admin.findAll();
+        const adminsData = await Admin.findAll();
 
         return res.json({
             ok: true,
             msg: 'getAdmin',
-            admins
+            adminsData
         });
 
     } catch (error) {
@@ -51,7 +51,7 @@ export const loginAdmin = async(req:Request, res:Response) => {
         }
 
         // Generate JWT
-        const token = await generateJwt( admin.id, admin.username, admin.type );
+        const token = await generateJwtAdmin( admin.id, admin.username, admin.type );
 
         return res.json({
             ok: true,
@@ -78,11 +78,11 @@ export const getAdmin = async(req:Request, res:Response) => {
 
     try {
 
-        const admin = await Admin.findByPk(id, {
+        const adminData = await Admin.findByPk(id, {
             attributes: {exclude: ['password']}
         });
 
-        if(!admin){
+        if(!adminData){
            return res.status(400).json({
                 ok: false,
                 msg:'Admin is no-existent'
@@ -92,7 +92,7 @@ export const getAdmin = async(req:Request, res:Response) => {
         return res.json({
             ok: true,
             msg: 'getAdmin',
-            admin
+            adminData
         });
         
     } catch (error) {
@@ -132,7 +132,7 @@ export const postAdmin = async(req:Request, res:Response) =>{
          const adminDB = await adminBuild.save();
 
          // Generate JWT
-        const token = await generateJwt( adminDB.id, adminDB.username, adminDB.type );
+        const token = await generateJwtAdmin( adminDB.id, adminDB.username, adminDB.type );
 
          return res.json({
              ok: true,
@@ -143,7 +143,7 @@ export const postAdmin = async(req:Request, res:Response) =>{
                 type: adminDB.type,
                 token
             }
-         });
+         }); 
         
     } catch (error) {
         console.log(error);
@@ -237,7 +237,7 @@ export const renewToken = async(req: Request, res:Response) =>{
     const { body } = req;
     const { id, username, type } = body;
 
-    const token = await generateJwt( id, username, type );
+    const token = await generateJwtAdmin( id, username, type );
 
     return res.json({
         ok: true,
