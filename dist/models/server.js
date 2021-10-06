@@ -21,6 +21,7 @@ const admins_1 = __importDefault(require("../routes/admins"));
 const rooms_1 = __importDefault(require("../routes/rooms"));
 const movie_show_1 = __importDefault(require("../routes/movie-show"));
 const purchases_1 = __importDefault(require("../routes/purchases"));
+const cars_1 = __importDefault(require("../routes/cars"));
 class Server {
     constructor() {
         this.apiPaths = {
@@ -29,7 +30,8 @@ class Server {
             movies: '/api/movies',
             rooms: '/api/rooms',
             movieShow: '/api/movie-shows',
-            purchases: '/api/purchases'
+            purchases: '/api/purchases',
+            cars: '/api/cars',
         };
         this.app = express_1.default();
         this.port = process.env.PORT || '8000';
@@ -54,6 +56,7 @@ class Server {
         this.app.use(this.apiPaths.rooms, rooms_1.default);
         this.app.use(this.apiPaths.movieShow, movie_show_1.default);
         this.app.use(this.apiPaths.purchases, purchases_1.default);
+        this.app.use(this.apiPaths.cars, cars_1.default);
     }
     dbConnection() {
         return __awaiter(this, void 0, void 0, function* () {

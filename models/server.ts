@@ -8,6 +8,7 @@ import adminRoutes from '../routes/admins';
 import roomRoutes from '../routes/rooms';
 import movieShowRoutes from '../routes/movie-show';
 import purchasesRoutes from '../routes/purchases';
+import carsRoutes from '../routes/cars';
 
 class Server { 
 
@@ -19,7 +20,8 @@ class Server {
         movies: '/api/movies',
         rooms: '/api/rooms',
         movieShow: '/api/movie-shows',
-        purchases: '/api/purchases'
+        purchases: '/api/purchases',
+        cars: '/api/cars',
     }
 
     constructor(){
@@ -55,6 +57,7 @@ class Server {
         this.app.use( this.apiPaths.rooms, roomRoutes );
         this.app.use( this.apiPaths.movieShow, movieShowRoutes );
         this.app.use( this.apiPaths.purchases, purchasesRoutes );
+        this.app.use( this.apiPaths.cars, carsRoutes );
     }
 
     async dbConnection(){
