@@ -3,7 +3,10 @@ import db from "../db/connection";
 import { MovieShowStatic } from '../interfaces/movie-show';
 
 
-const MovieShow = <MovieShowStatic>db.define('movie_shows', {
+const MovieShows = <MovieShowStatic>db.define('movie_shows', {
+    price: {
+        type: DataTypes.NUMBER
+    },
     start_time: {
         type: DataTypes.TIME
     },
@@ -24,4 +27,4 @@ const MovieShow = <MovieShowStatic>db.define('movie_shows', {
     },
 });
 
-export default MovieShow;
+export default MovieShows;

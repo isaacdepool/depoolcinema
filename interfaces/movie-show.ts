@@ -3,6 +3,7 @@ import { BuildOptions, Model } from "sequelize";
 
 export interface MovieShow{ 
     id: string,
+    price: number,
     start_time: string,
     end_time: string,
     day: string,

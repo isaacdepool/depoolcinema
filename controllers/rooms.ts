@@ -6,16 +6,17 @@ export const getRooms = async(req:Request, res:Response) => {
 
     try {
 
-        const rooms = await Rooms.findAll();
+        const roomsData = await Rooms.findAll({
+            where: { status: true }
+        });
 
         return res.json({
             ok: true,
             msg: 'getRooms',
-            rooms
+            roomsData
         });
         
     } catch (error) {
-        console.log(error);
         return res.status(500).json({
             ok: false,
             msg: 'Talk to the admin'
@@ -29,9 +30,9 @@ export const getRoom = async(req:Request, res:Response) => {
 
     try {
 
-        const room = await Rooms.findByPk(id);
+        const roomData = await Rooms.findByPk(id);
 
-        if(!room){
+        if(!roomData){
             return res.status(400).json({
                 ok: false,
                 msg: 'Room is no-existent',
@@ -41,7 +42,7 @@ export const getRoom = async(req:Request, res:Response) => {
         return res.json({
             ok: true,
             msg: 'getRoom',
-            room
+            roomData
         });
         
     } catch (error) {
@@ -59,13 +60,27 @@ export const postRoom = async(req:Request, res:Response) => {
 
     try {
 
+        // validate name 
+        const existName = await Rooms.findOne({
+            where: {
+                name: body.name
+            }
+        });
+
+        if(existName){
+            return res.status(404).json({
+                ok: false,
+                msg: `The name ${body.name} already exist`
+            });
+        }
+
         const room = await Rooms.build(body);
-        const roomSave = await room.save();
+        const roomData = await room.save();
 
         return res.json({
             ok: true,
             msg: 'postRoom',
-            roomSave
+            roomData
         });
         
     } catch (error) {
@@ -94,12 +109,12 @@ export const putRoom = async(req:Request, res:Response) => {
         }
 
         const roomDB = await room.update(body);
-        const roomUpdate = await roomDB.save();
+        const roomData = await roomDB.save();
 
         return res.json({
             ok: true,
             msg: 'putRoom',
-            roomUpdate
+            roomData
         });
         
     } catch (error) {
@@ -128,12 +143,12 @@ export const deleteRoom = async(req:Request, res:Response) => {
 
         room.status = false;
         const roomDB = await room.update(room);
-        const roomDelete = await roomDB.save();
+        const roomData = await roomDB.save();
 
         return res.json({
             ok: true,
             msg: 'deleteRoom',
-            roomDelete
+            roomData
         })
         
     } catch (error) {

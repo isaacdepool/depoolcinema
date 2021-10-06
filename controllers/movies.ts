@@ -11,7 +11,8 @@ export const getMovies = async ( req:Request, resp:Response ) => {
 
     const moviesData = await Movies.findAll({
         offset,
-        limit
+        limit,
+        where: { status: true }
     });
 
     resp.json({
@@ -91,7 +92,8 @@ export const putMovie = async(req: Request, res:Response) =>{
             });
         }
 
-        const movieData = await movieDB.update(body);
+        const movie = await movieDB.update(body);
+        const movieData = await movie.save();        
 
         return res.json({
             ok: true,

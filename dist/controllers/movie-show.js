@@ -13,10 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteMovieShow = exports.putMovieShow = exports.postMovieShow = exports.getMovieShow = exports.getMovieShows = void 0;
-const movie_show_1 = __importDefault(require("../models/movie-show"));
+const movie_shows_1 = __importDefault(require("../models/movie-shows"));
 const getMovieShows = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const movieShows = yield movie_show_1.default.findAll();
+        const movieShows = yield movie_shows_1.default.findAll();
         return res.json({
             ok: true,
             msg: 'getMoviesShows',
@@ -35,7 +35,7 @@ exports.getMovieShows = getMovieShows;
 const getMovieShow = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
-        const movieShow = yield movie_show_1.default.findByPk(id);
+        const movieShow = yield movie_shows_1.default.findByPk(id);
         if (!movieShow) {
             return res.status(400).json({
                 ok: false,
@@ -60,7 +60,7 @@ exports.getMovieShow = getMovieShow;
 const postMovieShow = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
-        const movieShowDB = yield movie_show_1.default.build(body);
+        const movieShowDB = yield movie_shows_1.default.build(body);
         const movieShowSave = yield movieShowDB.save();
         return res.json({
             ok: true,
@@ -81,7 +81,7 @@ const putMovieShow = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     const { id } = req.params;
     const { body } = req;
     try {
-        const movieShow = yield movie_show_1.default.findByPk(id);
+        const movieShow = yield movie_shows_1.default.findByPk(id);
         if (!movieShow) {
             return res.status(400).json({
                 ok: false,
@@ -108,7 +108,7 @@ exports.putMovieShow = putMovieShow;
 const deleteMovieShow = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
-        const movieShow = yield movie_show_1.default.findByPk(id);
+        const movieShow = yield movie_shows_1.default.findByPk(id);
         if (!movieShow) {
             return res.status(400).json({
                 ok: false,

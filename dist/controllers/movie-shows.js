@@ -12,41 +12,42 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteRoom = exports.putRoom = exports.postRoom = exports.getRoom = exports.getRooms = void 0;
-const rooms_1 = __importDefault(require("../models/rooms"));
-const getRooms = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.deleteMovieShow = exports.putMovieShow = exports.postMovieShow = exports.getMovieShow = exports.getMovieShows = void 0;
+const movie_shows_1 = __importDefault(require("../models/movie-shows"));
+const getMovieShows = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const roomsData = yield rooms_1.default.findAll({
+        const movieShows = yield movie_shows_1.default.findAll({
             where: { status: true }
         });
         return res.json({
             ok: true,
-            msg: 'getRooms',
-            roomsData
+            msg: 'getMoviesShows',
+            movieShows
         });
     }
     catch (error) {
+        console.log(error);
         return res.status(500).json({
             ok: false,
             msg: 'Talk to the admin'
         });
     }
 });
-exports.getRooms = getRooms;
-const getRoom = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getMovieShows = getMovieShows;
+const getMovieShow = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
-        const roomData = yield rooms_1.default.findByPk(id);
-        if (!roomData) {
+        const movieShow = yield movie_shows_1.default.findByPk(id);
+        if (!movieShow) {
             return res.status(400).json({
                 ok: false,
-                msg: 'Room is no-existent',
+                msg: 'The show does not exist'
             });
         }
         return res.json({
             ok: true,
-            msg: 'getRoom',
-            roomData
+            msg: 'getMovieShow',
+            movieShow
         });
     }
     catch (error) {
@@ -57,28 +58,16 @@ const getRoom = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
 });
-exports.getRoom = getRoom;
-const postRoom = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getMovieShow = getMovieShow;
+const postMovieShow = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
-        // validate name 
-        const existName = yield rooms_1.default.findOne({
-            where: {
-                name: body.name
-            }
-        });
-        if (existName) {
-            return res.status(404).json({
-                ok: false,
-                msg: `The name ${body.name} already exist`
-            });
-        }
-        const room = yield rooms_1.default.build(body);
-        const roomData = yield room.save();
+        const movieShowDB = yield movie_shows_1.default.build(body);
+        const movieShowSave = yield movieShowDB.save();
         return res.json({
             ok: true,
-            msg: 'postRoom',
-            roomData
+            msg: 'postMovieShow',
+            movieShowSave
         });
     }
     catch (error) {
@@ -89,24 +78,24 @@ const postRoom = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
 });
-exports.postRoom = postRoom;
-const putRoom = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.postMovieShow = postMovieShow;
+const putMovieShow = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { body } = req;
     try {
-        const room = yield rooms_1.default.findByPk(id);
-        if (!room) {
+        const movieShow = yield movie_shows_1.default.findByPk(id);
+        if (!movieShow) {
             return res.status(400).json({
                 ok: false,
-                msg: 'The Room does not exist'
+                msg: 'The show does not exist'
             });
         }
-        const roomDB = yield room.update(body);
-        const roomData = yield roomDB.save();
+        const movieShowDB = yield movieShow.update(body);
+        const movieShowUpdate = yield movieShowDB.save();
         return res.json({
             ok: true,
-            msg: 'putRoom',
-            roomData
+            msg: 'postMovieShow',
+            movieShowUpdate
         });
     }
     catch (error) {
@@ -117,24 +106,24 @@ const putRoom = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
 });
-exports.putRoom = putRoom;
-const deleteRoom = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.putMovieShow = putMovieShow;
+const deleteMovieShow = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
-        const room = yield rooms_1.default.findByPk(id);
-        if (!room) {
+        const movieShow = yield movie_shows_1.default.findByPk(id);
+        if (!movieShow) {
             return res.status(400).json({
                 ok: false,
-                msg: 'The Room does not exist'
+                msg: 'The show does not exist'
             });
         }
-        room.status = false;
-        const roomDB = yield room.update(room);
-        const roomData = yield roomDB.save();
+        movieShow.status = false;
+        const movieShowDB = yield movieShow.update(movieShow);
+        const movieShowDelete = yield movieShowDB.save();
         return res.json({
             ok: true,
-            msg: 'deleteRoom',
-            roomData
+            msg: 'postMovieShow',
+            movieShowDelete
         });
     }
     catch (error) {
@@ -145,5 +134,5 @@ const deleteRoom = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         });
     }
 });
-exports.deleteRoom = deleteRoom;
-//# sourceMappingURL=rooms.js.map
+exports.deleteMovieShow = deleteMovieShow;
+//# sourceMappingURL=movie-shows.js.map

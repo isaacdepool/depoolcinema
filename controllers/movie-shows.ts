@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
-import MovieShow from "../models/movie-show"
+import MovieShow from "../models/movie-shows"
 
 
 export const getMovieShows = async(req:Request, res:Response) => {
 
     try {
 
-        const movieShows = await MovieShow.findAll();
+        const movieShows = await MovieShow.findAll({
+            where: { status: true }
+        });
 
         return res.json({
             ok: true,
@@ -75,6 +77,27 @@ export const postMovieShow = async(req:Request, res:Response) => {
             msg: 'Talk to the admin'
         });
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 export const putMovieShow = async(req:Request, res:Response) => {

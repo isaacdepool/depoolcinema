@@ -21,7 +21,8 @@ const getMovies = (req, resp) => __awaiter(void 0, void 0, void 0, function* () 
     limit = Number(limit);
     const moviesData = yield movies_1.default.findAll({
         offset,
-        limit
+        limit,
+        where: { status: true }
     });
     resp.json({
         ok: true,
@@ -86,7 +87,8 @@ const putMovie = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 msg: 'The movie does not exist'
             });
         }
-        const movieData = yield movieDB.update(body);
+        const movie = yield movieDB.update(body);
+        const movieData = yield movie.save();
         return res.json({
             ok: true,
             msg: 'putMovie',

@@ -62,7 +62,7 @@ class Server {
             await db.authenticate();
             console.log(' DB ONLINE ');
 
-        }catch(err){
+        }catch(err:any){
             throw new Error(err);
         }
     }
