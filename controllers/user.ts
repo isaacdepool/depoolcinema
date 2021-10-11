@@ -95,7 +95,6 @@ export const login = async ( req: Request, res: Response) => {
 export const postUsuario = async ( req: Request, res: Response) => {
 
     const { body } = req;
-console.log(body);
 
     try {
         
@@ -133,10 +132,10 @@ console.log(body);
 
 
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             ok: false,
             msg: 'Talk to the admin',
+            req
         });       
     }
 

@@ -89,7 +89,6 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.login = login;
 const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
-    console.log(body);
     try {
         const existeEmail = yield user_1.default.findOne({
             where: {
@@ -118,10 +117,10 @@ const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         });
     }
     catch (error) {
-        console.log(error);
         res.status(500).json({
             ok: false,
             msg: 'Talk to the admin',
+            req
         });
     }
 });
