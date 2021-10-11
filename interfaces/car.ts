@@ -4,6 +4,7 @@ export interface Car{
     id: string,
     seat: string
     id_movie_show: string,
+    id_user: string,
     status: boolean
 }
 

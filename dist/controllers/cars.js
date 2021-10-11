@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteCar = exports.putCar = exports.postCar = exports.getCar = exports.getCars = void 0;
+exports.deleteCar = exports.putCar = exports.postCar = exports.getCar = exports.getCarsUser = exports.getCars = void 0;
 const cars_1 = __importDefault(require("../models/cars"));
 const getCars = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -33,6 +33,26 @@ const getCars = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getCars = getCars;
+const getCarsUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    try {
+        const carsData = yield cars_1.default.findAll({
+            where: { id_user: id, status: true }
+        });
+        return res.json({
+            ok: true,
+            msg: 'getCarsUser',
+            carsData
+        });
+    }
+    catch (error) {
+        return res.status(500).json({
+            ok: false,
+            msg: 'Talk to the admin'
+        });
+    }
+});
+exports.getCarsUser = getCarsUser;
 const getCar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {

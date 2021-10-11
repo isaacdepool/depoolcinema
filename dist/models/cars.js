@@ -12,6 +12,9 @@ const Cars = connection_1.default.define('cars', {
     id_movie_show: {
         type: sequelize_1.DataTypes.STRING
     },
+    id_user: {
+        type: sequelize_1.DataTypes.STRING
+    },
     status: {
         type: sequelize_1.DataTypes.BOOLEAN
     }

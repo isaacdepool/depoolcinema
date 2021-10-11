@@ -9,6 +9,9 @@ const Cars = <CarStatic>db.define('cars', {
     id_movie_show: {
         type: DataTypes.STRING
     },
+    id_user: {
+        type: DataTypes.STRING
+    },
     status: {
         type: DataTypes.BOOLEAN
     }

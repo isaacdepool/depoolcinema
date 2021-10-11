@@ -24,6 +24,31 @@ export const getCars = async(req:Request, res:Response) =>{
     }
 }
 
+export const getCarsUser = async(req:Request, res:Response) =>{
+
+    const { id } = req.params;
+
+    try {
+
+        const carsData = await Cars.findAll({
+            where: { id_user: id, status: true}
+        });
+
+        return res.json({
+            ok: true,
+            msg: 'getCarsUser',
+            carsData
+        });
+        
+    } catch (error) {
+
+        return res.status(500).json({
+            ok: false,
+            msg: 'Talk to the admin'
+        });
+    }
+}
+
 export const getCar = async(req:Request, res:Response) => {
 
     const { id } = req.params;
