@@ -14,15 +14,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
-const connection_1 = __importDefault(require("../db/connection"));
+const connection_1 = __importDefault(require("./db/connection"));
 const path_1 = __importDefault(require("path"));
-const user_1 = __importDefault(require("../routes/user"));
-const movies_1 = __importDefault(require("../routes/movies"));
-const admins_1 = __importDefault(require("../routes/admins"));
-const rooms_1 = __importDefault(require("../routes/rooms"));
-const movie_show_1 = __importDefault(require("../routes/movie-show"));
-const purchases_1 = __importDefault(require("../routes/purchases"));
-const cars_1 = __importDefault(require("../routes/cars"));
+const user_1 = __importDefault(require("./routes/user"));
+const movies_1 = __importDefault(require("./routes/movies"));
+const admins_1 = __importDefault(require("./routes/admins"));
+const rooms_1 = __importDefault(require("./routes/rooms"));
+const movie_show_1 = __importDefault(require("./routes/movie-show"));
+const purchases_1 = __importDefault(require("./routes/purchases"));
+const cars_1 = __importDefault(require("./routes/cars"));
 class Server {
     constructor() {
         this.apiPaths = {
@@ -36,10 +36,10 @@ class Server {
         };
         this.app = express_1.default();
         this.port = process.env.PORT || '8000';
-        // Middlewares
-        this.middlewares();
         // Rutas
         this.routes();
+        // Middlewares
+        this.middlewares();
         // DB
         this.dbConnection();
     }
@@ -49,7 +49,7 @@ class Server {
         // lectura del body
         this.app.use(express_1.default.json());
         // Directorio publico
-        this.app.use(express_1.default.static('public/depool'));
+        this.app.use(express_1.default.static('dist/public/depool'));
         // Carpeta publica
         this.app.get('*', (req, res) => {
             res.sendFile(path_1.default.resolve(__dirname, 'public/depool/index.html'));

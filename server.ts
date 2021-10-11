@@ -1,14 +1,15 @@
 import express, { Application } from 'express';
 import cors from 'cors';
-import db from '../db/connection';
+import db from './db/connection';
+import path from 'path';
 
-import userRoutes from '../routes/user';
-import movieRoutes from '../routes/movies';
-import adminRoutes from '../routes/admins';
-import roomRoutes from '../routes/rooms';
-import movieShowRoutes from '../routes/movie-show';
-import purchasesRoutes from '../routes/purchases';
-import carsRoutes from '../routes/cars';
+import userRoutes from './routes/user';
+import movieRoutes from './routes/movies';
+import adminRoutes from './routes/admins';
+import roomRoutes from './routes/rooms';
+import movieShowRoutes from './routes/movie-show';
+import purchasesRoutes from './routes/purchases';
+import carsRoutes from './routes/cars';
 
 class Server { 
 
@@ -29,12 +30,13 @@ class Server {
         this.app = express();
         this.port = process.env.PORT || '8000';
          
-        // Middlewares
-        this.middlewares();
-
+        
         // Rutas
         this.routes();
-
+        
+        // Middlewares
+        this.middlewares();
+        
         // DB
         this.dbConnection();
     }
@@ -47,7 +49,14 @@ class Server {
         // lectura del body
         this.app.use( express.json() );
 
+        // Directorio publico
+        this.app.use( express.static('dist/public/depool'));
+
         // Carpeta publica
+        this.app.get('*', (req, res) =>{
+
+            res.sendFile( path.resolve( __dirname, 'public/depool/index.html'));
+        })
     }
 
     routes(){
