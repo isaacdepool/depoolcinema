@@ -89,18 +89,19 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.login = login;
 const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
+    console.log(body);
     try {
-        // const existeEmail = await Usuario.findOne({
-        //     where: {
-        //         email: body.email
-        //     }
-        // });
-        // if(existeEmail){
-        //     return res.status(404).json({
-        //         ok: false,
-        //         msg: `the email ${body.email} already exist`
-        //     });
-        // }
+        const existeEmail = yield user_1.default.findOne({
+            where: {
+                email: body.email
+            }
+        });
+        if (existeEmail) {
+            return res.status(404).json({
+                ok: false,
+                msg: `the email ${body.email} already exist`
+            });
+        }
         // Bcrypt
         const salt = bcrypt_1.default.genSaltSync();
         body.password = bcrypt_1.default.hashSync(body.password, salt);
@@ -121,7 +122,6 @@ const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.status(500).json({
             ok: false,
             msg: 'Talk to the admin',
-            body
         });
     }
 });

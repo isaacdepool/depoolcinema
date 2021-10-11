@@ -95,21 +95,22 @@ export const login = async ( req: Request, res: Response) => {
 export const postUsuario = async ( req: Request, res: Response) => {
 
     const { body } = req;
+console.log(body);
 
     try {
         
-        // const existeEmail = await Usuario.findOne({
-        //     where: {
-        //         email: body.email
-        //     }
-        // });
+        const existeEmail = await Usuario.findOne({
+            where: {
+                email: body.email
+            }
+        });
 
-        // if(existeEmail){
-        //     return res.status(404).json({
-        //         ok: false,
-        //         msg: `the email ${body.email} already exist`
-        //     });
-        // }
+        if(existeEmail){
+            return res.status(404).json({
+                ok: false,
+                msg: `the email ${body.email} already exist`
+            });
+        }
 
         // Bcrypt
         const salt = bcrypt.genSaltSync();
@@ -136,7 +137,6 @@ export const postUsuario = async ( req: Request, res: Response) => {
         res.status(500).json({
             ok: false,
             msg: 'Talk to the admin',
-            body
         });       
     }
 
