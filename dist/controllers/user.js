@@ -121,7 +121,7 @@ const postUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.status(500).json({
             ok: false,
             msg: 'Talk to the admin',
-            error
+            body
         });
     }
 });

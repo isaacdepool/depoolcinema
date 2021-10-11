@@ -136,7 +136,7 @@ export const postUsuario = async ( req: Request, res: Response) => {
         res.status(500).json({
             ok: false,
             msg: 'Talk to the admin',
-            error
+            body
         });       
     }
 
