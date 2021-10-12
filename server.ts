@@ -30,13 +30,13 @@ class Server {
         this.app = express();
         this.port = process.env.PORT || '8000';
          
+        // Middlewares
+        this.middlewares();
         // Rutas
         this.routes();
         
         // DB
         this.dbConnection();
-        // Middlewares
-        this.middlewares();
         
         
     }
