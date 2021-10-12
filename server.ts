@@ -29,19 +29,9 @@ class Server {
 
         this.app = express();
         this.port = process.env.PORT || '8000';
-         
-        // Middlewares
-        this.middlewares();
-        // Rutas
-        this.routes();
         
         // DB
         this.dbConnection();
-        
-        
-    }
-
-    middlewares(){
 
         // CORS
         this.app.use( cors() );
@@ -49,14 +39,27 @@ class Server {
         // lectura del body
         this.app.use( express.json() );
 
+        // Rutas
+        this.routes();
+
         // Directorio publico
         this.app.use( express.static('dist/public/depool'));
 
         // Carpeta publica
         this.app.get('*', (req, res) =>{
-
+            
             res.sendFile( path.resolve( __dirname, 'public/depool/index.html'));
         })
+        // // Middlewares
+        // this.middlewares();
+        
+        
+        
+    }
+
+    middlewares(){
+
+        
     }
 
     routes(){

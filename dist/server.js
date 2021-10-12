@@ -36,24 +36,24 @@ class Server {
         };
         this.app = express_1.default();
         this.port = process.env.PORT || '8000';
-        // Middlewares
-        this.middlewares();
-        // Rutas
-        this.routes();
         // DB
         this.dbConnection();
-    }
-    middlewares() {
         // CORS
         this.app.use(cors_1.default());
         // lectura del body
         this.app.use(express_1.default.json());
+        // Rutas
+        this.routes();
         // Directorio publico
         this.app.use(express_1.default.static('dist/public/depool'));
         // Carpeta publica
         this.app.get('*', (req, res) => {
             res.sendFile(path_1.default.resolve(__dirname, 'public/depool/index.html'));
         });
+        // // Middlewares
+        // this.middlewares();
+    }
+    middlewares() {
     }
     routes() {
         this.app.use(this.apiPaths.admins, admins_1.default);
