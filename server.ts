@@ -31,14 +31,14 @@ class Server {
         this.port = process.env.PORT || '8000';
          
         
+        // DB
+        this.dbConnection();
         // Middlewares
         this.middlewares();
         // Rutas
         this.routes();
         
         
-        // DB
-        this.dbConnection();
     }
 
     middlewares(){
