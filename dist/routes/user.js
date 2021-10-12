@@ -6,7 +6,7 @@ const checkToken_1 = require("../middlewares/checkToken");
 const router = express_1.Router();
 router.get('/', user_1.getUsuarios);
 router.get('/:id', user_1.getUsuario);
-router.get('/auth/login', user_1.login);
+router.post('/auth/login', user_1.login);
 router.post('/', user_1.postUsuario);
 router.put('/:id', user_1.putUsuario);
 router.delete('/:id', user_1.deleteUsuario);

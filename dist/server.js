@@ -36,10 +36,10 @@ class Server {
         };
         this.app = express_1.default();
         this.port = process.env.PORT || '8000';
-        // Rutas
-        this.routes();
         // Middlewares
         this.middlewares();
+        // Rutas
+        this.routes();
         // DB
         this.dbConnection();
     }
