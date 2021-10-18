@@ -75,28 +75,8 @@ export const postMovieShow = async(req:Request, res:Response) => {
         return res.status(500).json({
             ok: false,
             msg: 'Talk to the admin'
-        });
+        }); 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 
@@ -126,7 +106,6 @@ export const putMovieShow = async(req:Request, res:Response) => {
         });
 
     } catch (error) {
-        console.log(error);
         return res.status(500).json({
             ok: false,
             msg: 'Talk to the admin'

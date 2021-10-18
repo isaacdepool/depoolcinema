@@ -63,7 +63,8 @@ export const postRoom = async(req:Request, res:Response) => {
         // validate name 
         const existName = await Rooms.findOne({
             where: {
-                name: body.name
+                name: body.name,
+                status: true
             }
         });
 

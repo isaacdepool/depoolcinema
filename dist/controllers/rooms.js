@@ -64,7 +64,8 @@ const postRoom = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         // validate name 
         const existName = yield rooms_1.default.findOne({
             where: {
-                name: body.name
+                name: body.name,
+                status: true
             }
         });
         if (existName) {
