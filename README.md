@@ -1,6 +1,6 @@
 # Depool Cinema
 
-https://depool-cinema.herokuapp.com/coming-soon
+https://depool-cinema.herokuapp.com
 
 ## Notes 
 
