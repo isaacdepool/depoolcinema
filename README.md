@@ -1,6 +1,6 @@
 # Depool Cinema
 
-https://depool-cinema.herokuapp.com
+https://depool-cinema.glitch.me/home
 
 ## Notes 
 
