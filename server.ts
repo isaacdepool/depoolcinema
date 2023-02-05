@@ -75,7 +75,7 @@ class Server {
     async dbConnection(){
         try{
             await db.authenticate();
-            console.log(' DB ONLINE ');
+            console.log(' DB ONLINE');
 
         }catch(err:any){
             throw new Error(err);

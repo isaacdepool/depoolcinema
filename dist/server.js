@@ -68,7 +68,7 @@ class Server {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield connection_1.default.authenticate();
-                console.log(' DB ONLINE ');
+                console.log(' DB ONLINE');
             }
             catch (err) {
                 throw new Error(err);

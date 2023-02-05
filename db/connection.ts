@@ -1,9 +1,15 @@
 import { Sequelize } from 'sequelize';
 
-const db = new Sequelize('bl7mvlsdyn0b6frwynql', 'unjorveeknqg9efg', 'Vv6qkgEyKMx8gvfZv0cK', {
-    host: 'bl7mvlsdyn0b6frwynql-mysql.services.clever-cloud.com',
+// const db = new Sequelize('cine', 'root', '', {
+//     host: 'http://localhost:8000/',
+//     dialect: 'mysql',
+//     // logging: false 
+// }); //Dev
+
+const db = new Sequelize('cinemadepool', 'isaacdepool', '12018922Id*', {
+    host: 'db4free.net',
     dialect: 'mysql',
     // logging: false 
-});
+}); //PRD
 
 export default db;
