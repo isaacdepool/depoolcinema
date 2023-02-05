@@ -27,7 +27,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
-    baseUrl: 'http://localhost:8000/api'
+    baseUrl: 'https://depool-cinema.glitch.me/api' //prd
+    // baseUrl: 'http://localhost:8000/api'//dev
 };
 /*
  * For easier debugging in development mode, you can import the following file
