@@ -1,4 +1,4 @@
-# Depool Cinema
+# Depool Cinema - Server
 
 ## Notes 
 
